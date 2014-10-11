@@ -32,3 +32,8 @@ If today is 2014-01-01,
 * `txt some task` -> - some task
 * `txt some task @due(2014-01-01 21:00)` -> - some task @due(2014-01-* 01 `21:00)
 * `txt some notice @n` -> some notice
+
+## Problem
+* `h` or `hh` time format
+* "alter xx" time format
+* input time in second argument
