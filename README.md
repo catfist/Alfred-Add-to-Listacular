@@ -23,7 +23,7 @@ Today is suppose to be a 2014/05/05.
 
 | input      | output     | note                                                                  |
 | ---        | ---        | ---                                                                   |
-| +0         | 2014-05-05 | `+*` become after n days                                              |
+| +0         | 2014-05-05 | `+*` become after \* days                                             |
 | +1         | 2014-05-06 |                                                                       |
 | +365       | 2015-05-05 |                                                                       |
 | 7          | 2014-05-07 | Specified date of this month                                          |
@@ -39,15 +39,15 @@ The following format is available. It can be omitted.
 
 Now is suppose to be a 12:00.
 
-| input  | output | note                        |
-| ---    | ---    | ---                         |
-| 910    | 09:10  |                             |
-| 2230   | 22:30  |                             |
-| 9      | 09:00  |                             |
-| 20     | 20:00  |                             |
-| 1h     | 13:00  | `*h` become after n hours   |
-| 15m    | 12:15  | `*m` become after n minutes |
-| (none) | 23:59  | If 'date' is inputed        |
+| input  | output | note                         |
+| ---    | ---    | ---                          |
+| 910    | 09:10  |                              |
+| 2230   | 22:30  |                              |
+| 9      | 09:00  |                              |
+| 20     | 20:00  |                              |
+| 1h     | 13:00  | `*h` become after \* hours   |
+| 15m    | 12:15  | `*m` become after \* minutes |
+| (none) | 23:59  | If 'date' is inputed         |
 
 
 ### Example
@@ -70,3 +70,4 @@ If `@n` is inputed, it will be an item without a checkbox.
 # Implementation plan
 * Incremental search for Tasks
 + Make done tasks
++ Corresponding to TaskPaper format
