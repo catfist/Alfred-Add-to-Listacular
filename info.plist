@@ -259,9 +259,9 @@ echo "${type}: ${task}"</string>
 				<key>script</key>
 				<string># Add gsed to 'PATH'
 PATH=$PATH:/usr/local/bin
-IFS=$'\n'
 todotxt=`cat path | xargs echo -n`
-num="{query}"
+q="{query}"
+num="${q%%,*}"
 
 task=`sed -n ${num}p $todotxt | sed 's/- //'`
 gsed -in "${num}s/^- /x /" $todotxt
