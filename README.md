@@ -1,17 +1,22 @@
 Alfred-Add-to-Listacular
 ========================
 
-![screenshot](http://cl.ly/YEEl/Image%202014-10-26%20at%2010.52.27%20%E5%8D%88%E5%BE%8C.png)
-
-![Input example](http://cl.ly/YDlI/Monosnap_2014-10-26_23-32-31.jpg)
+![screenshot](http://cl.ly/YIGo/Image%202014-10-30%20at%209.45.02%20%E5%8D%88%E5%BE%8C.png)
 
 ## About
 This workflow add tasks to Todo.txt with Listacular due/remind format.
 
-## Ugase
-Alfred text format: `lc task,date,time`
+## Setup
+![setup](http://cl.ly/YHxi/Monosnap_2014-10-30_21-44-05.jpg)
 
-Change `todotxt` path in 'Run Script' action to your Listacular syncing file.
+Type 'lsetup' & enter your Todo.txt absolute path to Argument
+
+## Usage: lc
+![Input example](http://cl.ly/YDlI/Monosnap_2014-10-26_23-32-31.jpg)
+
+Add tasks to Todo.txt.
+
+Alfred text format: `lc task,date,time`
 
 ### task:
 All Todo.txt format (priority, context, project) and Listacular due format (`@due(yyyy-mm-dd hh:mm)`, `@remind(yyyy-mm-dd hh:mm)`) are allowed.
@@ -67,7 +72,12 @@ If `@n` is inputed, it will be an item without a checkbox.
 | some note @n    | some note                             |
 | # header @n     | # header                              |
 
-# Implementation plan
-* Incremental search for Tasks
-+ Make done tasks
+## Usage: ls
+![Search example](http://cl.ly/YIPF/Monosnap_2014-10-30_20-55-01.jpg)
+
+Search tasks (begining from `- `) Incremntal & make done.
+
+**This command needs GNU sed.** Install GNU sed by `brew install sed` .
+
+## Implementation plan
 + Corresponding to TaskPaper format
