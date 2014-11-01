@@ -1,7 +1,7 @@
 Alfred-Add-to-Listacular
 ========================
 
-![screenshot](http://cl.ly/YIGo/Image%202014-10-30%20at%209.45.02%20%E5%8D%88%E5%BE%8C.png)
+![screenshot](http://cl.ly/YJkH/Image%202014-11-01%20at%208.35.46%20%E5%8D%88%E5%BE%8C.png)
 
 ## About
 This workflow add tasks to Todo.txt with Listacular due/remind format.
@@ -72,13 +72,16 @@ If `@n` is inputed, it will be an item without a checkbox.
 | some note @n    | some note                             |
 | # header @n     | # header                              |
 
-<<<<<<< HEAD
 ## Usage: ls
 ![Search example](http://cl.ly/YIPF/Monosnap_2014-10-30_20-55-01.jpg)
 
-Search tasks (begining from `- `) Incremntal & make done.
-
 **This command needs GNU sed.** Install GNU sed by `brew install sed` .
+
+Search tasks (begining from `- `) Incremntal. Enter make done, (crtl) set new Tag.
+
+Alfred text format: SearchWord(,date,time)
+
+To set new Tag, date & time is required. Format is same as 'lc' command.
 
 ## Implementation plan
 + Corresponding to TaskPaper format
