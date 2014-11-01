@@ -81,9 +81,4 @@ Search tasks (begining from `- `) Incremntal & make done.
 **This command needs GNU sed.** Install GNU sed by `brew install sed` .
 
 ## Implementation plan
-=======
-# Implementation plan
-* Incremental search for Tasks
-+ Make done tasks
->>>>>>> 05089223b6b6ea8598675f44a129ecd662390ff4
 + Corresponding to TaskPaper format
