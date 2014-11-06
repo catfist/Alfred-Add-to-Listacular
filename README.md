@@ -7,7 +7,7 @@ Alfred-Add-to-Listacular
 This workflow add tasks to Todo.txt with Listacular due/remind format.
 
 ## Setup
-![setup](http://cl.ly/YHxi/Monosnap_2014-10-30_21-44-05.jpg)
+![setup](http://cl.ly/YOjC/Monosnap_2014-11-06_22-58-13.jpg)
 
 Type 'lsetup' & enter your Todo.txt absolute path to Argument
 
