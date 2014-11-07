@@ -1,7 +1,7 @@
 Alfred-Add-to-Listacular
 ========================
 
-![screenshot](http://cl.ly/YJkH/Image%202014-11-01%20at%208.35.46%20%E5%8D%88%E5%BE%8C.png)
+![screenshot](http://cl.ly/YPgy/Image%202014-11-07%20at%208.21.31%20%E5%8D%88%E5%BE%8C.png)
 
 ## About
 This workflow add tasks to Todo.txt with Listacular due/remind format.
