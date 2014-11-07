@@ -7,21 +7,22 @@ Alfred-Add-to-Listacular
 This workflow add tasks to Todo.txt with Listacular due/remind format.
 
 ## Setup
-![setup](http://cl.ly/YOjC/Monosnap_2014-11-06_22-58-13.jpg)
+![setup](http://cl.ly/YOXb/Monosnap_2014-11-06_23-52-54.jpg)
 
 Type 'lsetup' & enter your Todo.txt absolute path to Argument
 
-## Usage: lc
+## Usage
+### lc
 ![Input example](http://cl.ly/YDlI/Monosnap_2014-10-26_23-32-31.jpg)
 
 Add tasks to Todo.txt.
 
 Alfred text format: `lc task,date,time`
 
-### task:
+#### task:
 All Todo.txt format (priority, context, project) and Listacular due format (`@due(yyyy-mm-dd hh:mm)`, `@remind(yyyy-mm-dd hh:mm)`) are allowed.
 
-### date:
+#### date:
 The following format is available. It can be omitted.
 
 Today is suppose to be a 2014/05/05.
@@ -39,7 +40,7 @@ Today is suppose to be a 2014/05/05.
 | 2014-1-1   | 2014-01-01 |                                                                       |
 | (none)     | 2014-05-05 | If 'time' is inputed                                                  |
 
-### time:
+#### time:
 The following format is available. It can be omitted.
 
 Now is suppose to be a 12:00.
@@ -55,7 +56,7 @@ Now is suppose to be a 12:00.
 | (none) | 23:59  | If 'date' is inputed         |
 
 
-### Example
+#### Example
 Now is suppose to be a 2014/5/5 12:00.
 
 Items beginning from `- ` has a checkbox in Listacular.
@@ -72,7 +73,7 @@ If `@n` is inputed, it will be an item without a checkbox.
 | some note @n    | some note                             |
 | # header @n     | # header                              |
 
-## Usage: ls
+### ls
 ![Search example](http://cl.ly/YIPF/Monosnap_2014-10-30_20-55-01.jpg)
 
 **This command needs GNU sed.** Install GNU sed by `brew install sed` .
@@ -82,6 +83,11 @@ Search tasks (begining from `- `) Incremntal. Enter make done, (crtl) set new Ta
 Alfred text format: SearchWord(,date,time)
 
 To set new Tag, date & time is required. Format is same as 'lc' command.
+
+### lcdone
+**This command needs GNU sed.** Install GNU sed by `brew install sed` .
+
+Move tasks completed (bigining fron `x `) to 'done.txt'  that exist in the same folder as the Todo.txt.
 
 ## Implementation plan
 + Corresponding to TaskPaper format

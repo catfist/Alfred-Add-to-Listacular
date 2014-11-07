@@ -52,6 +52,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>33D11BA4-138A-483F-89EA-1C7C09466AFF</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D8A3DDE7-64E6-4FC8-8FA6-8A6BEDD15E46</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>40179C3B-2B9E-4BFE-8C44-FB25EBB7A799</key>
 		<array>
 			<dict>
@@ -78,6 +89,17 @@
 				<string>1BD61970-6BDD-4F3A-9C4E-9166B14B5D7C</string>
 				<key>modifiers</key>
 				<integer>262144</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>D37322B4-A2B5-4A97-99D8-B35D65739A9E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E50E9B3A-EEA6-423E-AF2D-FBE10F5141A0</string>
+				<key>modifiers</key>
+				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 			</dict>
@@ -205,7 +227,7 @@ EOB</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>todotxt=`cat path | xargs echo -n`
+				<string>todotxt=`cat path | sed "s%~%$HOME%"`
 IFS=','
 read type pre task &lt;&lt;&lt; "{query}"
 
@@ -423,7 +445,18 @@ fi</string>
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string>echo "{query}" &gt; path</string>
+				<string># Add gsed to 'PATH'
+PATH=$PATH:/usr/local/bin
+todotxt=`cat path | sed "s%~%$HOME%"`
+donetxt=${todotxt%/*}/done.txt
+
+echo "Archived:"
+gsed -n 's/^x //gp' $todotxt
+
+grep '^x ' $todotxt &gt;&gt; $donetxt
+gsed -i '/^x /d' $todotxt
+
+gsed -n '$p' $todotxt | (gsed -i '$d' $todotxt; xargs echo -n &gt;&gt; $todotxt)</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -438,18 +471,54 @@ fi</string>
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>lcdone</string>
+				<key>text</key>
+				<string>Archive done task</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>04B611D2-60C3-4A45-974E-14FB1E645891</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
 				<string>lsetup</string>
 				<key>text</key>
-				<string>Enter your Todo.txt absolute path to Argument</string>
+				<string>Enter your Todo.txt path to Argument</string>
 				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>04B611D2-60C3-4A45-974E-14FB1E645891</string>
+			<string>33D11BA4-138A-483F-89EA-1C7C09466AFF</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>echo "{query}" &gt; path</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>D8A3DDE7-64E6-4FC8-8FA6-8A6BEDD15E46</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -482,6 +551,11 @@ http://github.com/catfist/Alfred-Add-to-Listacular</string>
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
+		<key>33D11BA4-138A-483F-89EA-1C7C09466AFF</key>
+		<dict>
+			<key>ypos</key>
+			<real>460</real>
+		</dict>
 		<key>40179C3B-2B9E-4BFE-8C44-FB25EBB7A799</key>
 		<dict>
 			<key>ypos</key>
@@ -496,6 +570,11 @@ http://github.com/catfist/Alfred-Add-to-Listacular</string>
 		<dict>
 			<key>ypos</key>
 			<real>340</real>
+		</dict>
+		<key>D8A3DDE7-64E6-4FC8-8FA6-8A6BEDD15E46</key>
+		<dict>
+			<key>ypos</key>
+			<real>460</real>
 		</dict>
 		<key>E50E9B3A-EEA6-423E-AF2D-FBE10F5141A0</key>
 		<dict>
