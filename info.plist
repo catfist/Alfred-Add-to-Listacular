@@ -125,86 +125,7 @@
 				<key>keyword</key>
 				<string>lc</string>
 				<key>script</key>
-				<string>LANG=ja_JP.UTF-8
-q="{query}"
-
-IFS=','
-set -- $q
-
-tsk="$1"
-dat="$2"
-tim="$3"
-
-if echo "$q" | grep -q @n; then
-  type=Note
-  pre=""
-  task=`echo "${tsk}" | sed 's/@n//'`
-else
-  type=Task
-  pre="- "
-  if echo "${dat}${tim}" | grep -q [0-9]; then
-      [ `echo "$dat" | grep "^+[0-9]\+$"` ];RP=$?
-      [ `echo "$dat" | grep "^[0-9]\{1,2\}$"` ];RD=$?
-      [ `echo "$dat" | grep "^[0-9]\{1,2\}-[0-9]\{1,2\}$"` ];RM=$?
-      [ `echo "$dat" | grep "^[0-9]\{4\}-[0-9]\{1,2\}-[0-9]\{1,2\}$"` ];RY=$?
-      case "${RP}${RD}${RM}${RY}" in
-        0111)
-          dat=`date -v${dat}d '+%Y-%m-%d'`
-        ;;
-        1011)
-          dat=`echo -n 0$dat | tail -c 2`
-          if [ "$dat" -lt `date '+%d'` ];then
-            month=`date -v+1m '+%Y-%m'`
-          else
-            month=`date '+%Y-%m'`
-          fi
-          dat="$month"-"$dat"
-        ;;
-        1101)
-          dat=`expr "0${dat}" : '[0-9]*\([0-9]\{2\}\)-'`-`echo $dat | sed -e 's/^[0-9]*-//' -e 's/^/0/' | tail -c 3`
-          if [ `echo "$dat" | tr -dc [0-9]` -lt `date '+%m%d'` ];then
-            year=`date -v+1y '+%Y'`
-          else
-            year=`date '+%Y'`
-          fi
-          dat="$year"-"$dat"
-        ;;
-        1110)
-          dat=`echo "${dat}" | head -c 4`-`echo "$dat" | sed -e 's/^[0-9]*-[0-9]\{1,2\}-//' -e 's/^/0/' | tail -c 3`-`echo ${dat} | sed -e 's/^[0-9]*-[0-9]*-//' -e 's/^/0/' | tail -c 3`
-        ;;
-      esac
-    if [ -z "${tim}" ]; then
-      tag="@due(${dat} 23:59)"
-    else
-      if echo "${tim}" | grep -q "^[0-9]\{1,2\}$";then
-        tim=`echo "0${tim}:00" | tail -c 6`
-      fi
-      if echo "${tim}" | grep -q "^[0-9]\{3,4\}$";then
-        tim=`echo 0${tim}| tail -c 5 | sed 's/\(..\)$/:\1/'`
-      fi
-      if echo "$tim" | grep -q '^[0-9]*[mh]$';then
-        tim=`echo $tim | tr h,m H,M`
-        tim=`date -v+${tim} '+%H:%M'`
-      fi
-      if [ -z "${dat}" ]; then
-        dat=`date '+%Y-%m-%d'`
-      fi
-      tag="@remind(${dat} ${tim})"
-    fi
-  else
-    tag=""
-  fi
-fi
-
-add=`echo "${tsk} ${tag}" | sed -e 's/&amp;/\&amp;amp;/g' -e 's/&lt;/\&amp;lt;/g' -e 's/&gt;/\&amp;gt;/g' -e "s/'/\&amp;apos;/g" -e 's/"/\&amp;quot;/g'`
-cat &lt;&lt; EOB
-&lt;?xml version="1.0"?&gt;
-    &lt;items&gt;
-        &lt;item uid="Listacular" arg="${type},${pre},${add}" valid="YES" &gt;
-            &lt;title&gt;${type}: ${add}&lt;/title&gt;
-        &lt;/item&gt;
-    &lt;/items&gt;
-EOB</string>
+				<string>./lc.sh "{query}"</string>
 				<key>subtext</key>
 				<string>task,date,time</string>
 				<key>title</key>
@@ -227,17 +148,7 @@ EOB</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>todotxt=`cat path | sed "s%~%$HOME%"`
-IFS=','
-read type pre task &lt;&lt;&lt; "{query}"
-
-l1=`tail -c 1 $todotxt`
-if [ -n "$l1" ];then
-echo "" &gt;&gt; $todotxt
-fi
-echo -n "${pre}${task}" &gt;&gt; $todotxt
-
-echo "${type}: ${task}"</string>
+				<string>./lcrun.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -279,15 +190,7 @@ echo "${type}: ${task}"</string>
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string># Add gsed to 'PATH'
-PATH=$PATH:/usr/local/bin
-todotxt=`cat path | xargs echo -n`
-q="{query}"
-num="${q%%,*}"
-
-task=`sed -n ${num}p $todotxt | sed 's/- //'`
-gsed -in "${num}s/^- /x /" $todotxt
-echo "done: $task"</string>
+				<string>./lsrun1.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -308,92 +211,7 @@ echo "done: $task"</string>
 				<key>keyword</key>
 				<string>ls</string>
 				<key>script</key>
-				<string>todotxt=`cat path | xargs echo -n`
-
-query="{query}"
-
-IFS=','
-read q dat tim &lt;&lt;&lt; "$query"
-
-if echo "${dat}${tim}" | grep -q [0-9]; then
-    [ `echo "$dat" | grep "^+[0-9]\+$"` ];RP=$?
-    [ `echo "$dat" | grep "^[0-9]\{1,2\}$"` ];RD=$?
-    [ `echo "$dat" | grep "^[0-9]\{1,2\}-[0-9]\{1,2\}$"` ];RM=$?
-    [ `echo "$dat" | grep "^[0-9]\{4\}-[0-9]\{1,2\}-[0-9]\{1,2\}$"` ];RY=$?
-    case "${RP}${RD}${RM}${RY}" in
-      0111)
-        dat=`date -v${dat}d '+%Y-%m-%d'`
-      ;;
-      1011)
-        dat=`echo -n 0$dat | tail -c 2`
-        if [ "$dat" -lt `date '+%d'` ];then
-          month=`date -v+1m '+%Y-%m'`
-        else
-          month=`date '+%Y-%m'`
-        fi
-        dat="$month"-"$dat"
-      ;;
-      1101)
-        dat=`expr "0${dat}" : '[0-9]*\([0-9]\{2\}\)-'`-`echo $dat | sed -e 's/^[0-9]*-//' -e 's/^/0/' | tail -c 3`
-        if [ `echo "$dat" | tr -dc [0-9]` -lt `date '+%m%d'` ];then
-          year=`date -v+1y '+%Y'`
-        else
-          year=`date '+%Y'`
-        fi
-        dat="$year"-"$dat"
-      ;;
-      1110)
-        dat=`echo "${dat}" | head -c 4`-`echo "$dat" | sed -e 's/^[0-9]*-[0-9]\{1,2\}-//' -e 's/^/0/' | tail -c 3`-`echo ${dat} | sed -e 's/^[0-9]*-[0-9]*-//' -e 's/^/0/' | tail -c 3`
-      ;;
-    esac
-  if [ -z "${tim}" ]; then
-    tag="@due(${dat} 23:59)"
-  else
-    if echo "${tim}" | grep -q "^[0-9]\{1,2\}$";then
-      tim=`echo "0${tim}:00" | tail -c 6`
-    fi
-    if echo "${tim}" | grep -q "^[0-9]\{3,4\}$";then
-      tim=`echo 0${tim}| tail -c 5 | sed 's/\(..\)$/:\1/'`
-    fi
-    if echo "$tim" | grep -q '^[0-9]*[mh]$';then
-      tim=`echo $tim | tr h,m H,M`
-      tim=`date -v+${tim} '+%H:%M'`
-    fi
-    if [ -z "${dat}" ]; then
-      dat=`date '+%Y-%m-%d'`
-    fi
-    tag="@remind(${dat} ${tim})"
-  fi
-  modst="New tag: $tag"
-else
-  modst="Input new due date,time"
-fi
-
-IFS=$'\n'
-
-cat &lt;&lt; EOB
-&lt;?xml version="1.0"?&gt;
-    &lt;items&gt;
-EOB
-
-for task in `grep -in "^- .*$q" "$todotxt"`
-do
-text=`echo $task | sed -e 's/^[0-9]*:- //' -e 's/&amp;/\&amp;amp;/g' -e 's/&lt;/\&amp;lt;/g' -e 's/&gt;/\&amp;gt;/g' -e "s/'/\&amp;apos;/g" -e 's/"/\&amp;quot;/g'`
-num=`echo $task | sed 's/\(^[0-9]*\):.*/\1/'`
-cat &lt;&lt; EOB
-        &lt;item uid="Listacular" arg="${num},${tag}" valid="YES" &gt;
-            &lt;title&gt;${num}: ${text}&lt;/title&gt;
-            &lt;subtitle&gt;Make task done&lt;/subtitle&gt;
-            &lt;subtitle mod="ctrl"&gt;${modst}&lt;/subtitle&gt;
-        &lt;/item&gt;
-EOB
-done
-
-cat &lt;&lt; EOB
-    &lt;/items&gt;
-EOB
-
-</string>
+				<string>./ls.sh "{query}"</string>
 				<key>subtext</key>
 				<string>Make tasks done/(^)Set new Tag</string>
 				<key>title</key>
@@ -416,19 +234,7 @@ EOB
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string># Add gsed to 'PATH'
-PATH=$PATH:/usr/local/bin
-todotxt=`cat path | xargs echo -n`
-IFS=','
-
-if echo "{query}" | grep -q '^[0-9]\+,@[due|remind]';then
-  read num tag &lt;&lt;&lt; "{query}"
-  gsed -i -e "${num}s/@[remind|reminded|due]\(.*\)//g" -e "${num}s/$/ ${tag}/" $todotxt
-  task=`sed -n ${num}p  $todotxt | sed 's/^- //'`
-  echo "New Tag seted: $task"
-else
-  echo "ERROR: Undifined Tag"
-fi</string>
+				<string>./lsrun2.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -445,18 +251,7 @@ fi</string>
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string># Add gsed to 'PATH'
-PATH=$PATH:/usr/local/bin
-todotxt=`cat path | sed "s%~%$HOME%"`
-donetxt=${todotxt%/*}/done.txt
-
-echo "Archived:"
-gsed -n 's/^x //gp' $todotxt
-
-grep '^x ' $todotxt &gt;&gt; $donetxt
-gsed -i '/^x /d' $todotxt
-
-gsed -n '$p' $todotxt | (gsed -i '$d' $todotxt; xargs echo -n &gt;&gt; $todotxt)</string>
+				<string>./lcdonerun.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
