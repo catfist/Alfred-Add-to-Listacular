@@ -125,7 +125,7 @@
 				<key>keyword</key>
 				<string>lc</string>
 				<key>script</key>
-				<string>./lc.sh "{query}"</string>
+				<string>./lc.sh lcinput "{query}"</string>
 				<key>subtext</key>
 				<string>task,date,time</string>
 				<key>title</key>
@@ -148,7 +148,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>script</key>
-				<string>./lcrun.sh "{query}"</string>
+				<string>./lc.sh lcrun "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -190,7 +190,8 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string>./lsrun1.sh "{query}"</string>
+				<string># This Action needs GNU sed
+./lsrun1.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -211,7 +212,8 @@
 				<key>keyword</key>
 				<string>ls</string>
 				<key>script</key>
-				<string>./ls.sh "{query}"</string>
+				<string># This Action needs GNU sed
+./lc.sh lsinput "{query}"</string>
 				<key>subtext</key>
 				<string>Make tasks done/(^)Set new Tag</string>
 				<key>title</key>
@@ -234,7 +236,8 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string>./lsrun2.sh "{query}"</string>
+				<string># This Action needs GNU sed
+./lsrun2.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -251,7 +254,8 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string>./lcdonerun.sh "{query}"</string>
+				<string># This Action needs GNU sed
+./lc.sh lcdonerun "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
