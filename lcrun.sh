@@ -1,0 +1,10 @@
+IFS=','
+read type pre task <<< "$2"
+
+l1=`tail -c 1 $todotxt`
+if [ -n "$l1" ];then
+echo "" >> $todotxt
+fi
+echo -n "${pre}${task}" >> $todotxt
+
+echo "${type}: ${task}"
