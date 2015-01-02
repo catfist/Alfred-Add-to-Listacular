@@ -2,6 +2,7 @@
 LANG=ja_JP.UTF-8
 # Add gsed to 'PATH'
 PATH=$PATH:/usr/local/bin
+# todo.txt path
 todotxt=`cat path | sed "s%~%$HOME%"`
 donetxt=${todotxt%/*}/done.txt
 
@@ -161,14 +162,13 @@ else
   modst="Input new due date,time"
 fi
 
-IFS=$'\n'
-
 cat << EOB
 <?xml version="1.0"?>
-    <items>
+<items>
 EOB
 
-for task in `grep -in "^- .*$txt" "$todotxt"`
+IFS=$'\n'
+for task in `grep -in "^- .*$txt" "$todotxt" `
 do
   bdy=`echo "$task" | sed -e 's/^[0-9]*:- //'`
   if [ -n "$tag" ];then
@@ -177,7 +177,7 @@ do
   bdy=`echo "$bdy" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e "s/'/\&apos;/g" -e 's/"/\&quot;/g'`
   num=`echo "$task" | sed 's/\(^[0-9]*\):.*/\1/'`
   cat << EOB
-<item uid="Listacular" arg="${num},${tag}" valid="YES" >
+<item uid="Listacular" arg="${num},${tag}" valid="YES">
 <title>${bdy}</title>
 <subtitle>Make task done</subtitle>
 <subtitle mod="ctrl">${modst}</subtitle>
