@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>com.catfist.listacular</string>
+	<string>com.alfredapp.catfist.listacular</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
@@ -124,6 +124,14 @@
 				<integer>126</integer>
 				<key>keyword</key>
 				<string>lc</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
 				<key>script</key>
 				<string>./lc.sh lcinput "{query}"</string>
 				<key>subtext</key>
@@ -190,8 +198,7 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string># This Action needs GNU sed
-./lsrun1.sh "{query}"</string>
+				<string>./lsrun1.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -206,14 +213,21 @@
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>escaping</key>
 				<integer>126</integer>
 				<key>keyword</key>
 				<string>ls</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>script</key>
-				<string># This Action needs GNU sed
-./lc.sh lsinput "{query}"</string>
+				<string>./lc.sh lsinput "{query}"</string>
 				<key>subtext</key>
 				<string>Make tasks done/(^)Set new Tag</string>
 				<key>title</key>
@@ -236,8 +250,7 @@
 				<key>escaping</key>
 				<integer>127</integer>
 				<key>script</key>
-				<string># This Action needs GNU sed
-./lsrun2.sh "{query}"</string>
+				<string>./lsrun2.sh "{query}"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>

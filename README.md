@@ -6,6 +6,11 @@ Alfred-Add-to-Listacular
 ## About
 This workflow add tasks to Todo.txt with Listacular due/remind format.
 
+## install
+Download package from 'Release' tab.
+
+Or, clone this repository in your Alfred Workflow directory.
+
 ## Setup
 ![setup](http://cl.ly/YOXb/Monosnap_2014-11-06_23-52-54.jpg)
 
